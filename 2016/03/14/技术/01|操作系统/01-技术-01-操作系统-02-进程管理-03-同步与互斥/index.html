@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>01 CS | 01 操作系统 |  02 进程管理  | 03 同步与互斥 - Sin&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="3.1 进程同步与互斥的基本概念基本概念在多道程序系统中，由于进程，各进程之间有两种形式的制约关系:(1)间接相互制约: 源于资源共享。(2)直接相互制约: 源于进程合作。 进程同步: 主要源于进程合作，为进程之间的直接制约关系。 进程互斥:主要源于资源共享，是进程之间的间接制约关系。 临界资源: 一次只允许一个进程使用的资源称为临界资源，如打印机、公共变量等。临界区: 在每个进程中，访问临界资源">
+<meta name="keywords" content="操作系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="01 CS | 01 操作系统 |  02 进程管理  | 03 同步与互斥">
+<meta property="og:url" content="http://yoursite.com/2016/03/14/技术/01|操作系统/01-技术-01-操作系统-02-进程管理-03-同步与互斥/index.html">
+<meta property="og:site_name" content="Sin&#39;s Blog">
+<meta property="og:description" content="3.1 进程同步与互斥的基本概念基本概念在多道程序系统中，由于进程，各进程之间有两种形式的制约关系:(1)间接相互制约: 源于资源共享。(2)直接相互制约: 源于进程合作。 进程同步: 主要源于进程合作，为进程之间的直接制约关系。 进程互斥:主要源于资源共享，是进程之间的间接制约关系。 临界资源: 一次只允许一个进程使用的资源称为临界资源，如打印机、公共变量等。临界区: 在每个进程中，访问临界资源">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-16T19:23:57.697Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="01 CS | 01 操作系统 |  02 进程管理  | 03 同步与互斥">
+<meta name="twitter:description" content="3.1 进程同步与互斥的基本概念基本概念在多道程序系统中，由于进程，各进程之间有两种形式的制约关系:(1)间接相互制约: 源于资源共享。(2)直接相互制约: 源于进程合作。 进程同步: 主要源于进程合作，为进程之间的直接制约关系。 进程互斥:主要源于资源共享，是进程之间的间接制约关系。 临界资源: 一次只允许一个进程使用的资源称为临界资源，如打印机、公共变量等。临界区: 在每个进程中，访问临界资源">
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="01 CS | 01 操作系统 |  02 进程管理  | 03 同步与互斥" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2016-03-13T18:04:12.000Z">2016-03-14</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    11 minutes read (About 1661 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                01 CS | 01 操作系统 |  02 进程管理  | 03 同步与互斥
+            
+        </h1>
+        <div class="content">
+            <h2 id="3-1-进程同步与互斥的基本概念"><a href="#3-1-进程同步与互斥的基本概念" class="headerlink" title="3.1 进程同步与互斥的基本概念"></a>3.1 进程同步与互斥的基本概念</h2><h3 id="基本概念在多道程序系统中，由于进程，各进程之间有两种形式的制约关系"><a href="#基本概念在多道程序系统中，由于进程，各进程之间有两种形式的制约关系" class="headerlink" title="基本概念在多道程序系统中，由于进程，各进程之间有两种形式的制约关系:"></a>基本概念在多道程序系统中，由于进程，各进程之间有两种形式的制约关系:</h3><p><strong>(1)间接相互制约:</strong> 源于资源共享。<br><strong>(2)直接相互制约:</strong> 源于进程合作。</p>
+<p><strong>进程同步:</strong> 主要源于进程合作，为进程之间的直接制约关系。 进程互斥:主要源于资源共享，是进程之间的间接制约关系。<br> <strong>临界资源:</strong> 一次只允许一个进程使用的资源称为临界资源，如打印机、公共变量等。<br><strong>临界区:</strong> 在每个进程中，访问临界资源的那段程序称为临界区。</p>
+<h3 id="同步机制应遵循的准则同步机制应遵循下述四条准则"><a href="#同步机制应遵循的准则同步机制应遵循下述四条准则" class="headerlink" title="同步机制应遵循的准则同步机制应遵循下述四条准则:"></a>同步机制应遵循的准则同步机制应遵循下述四条准则:</h3><p><strong>(1)空闲则进:</strong> 当临界区空闲时，进程可以立即进入，以便有效地利用临界资源。<br><strong>(2)遇忙等待:</strong> 当已有进程进入其临界区时，其它进程必须等待，以保证互斥。<br> <strong>(3)有限等待:</strong> 对要求进入的进程，应在有限的时间内使之进入，以免陷入“死等”。<br><strong>(4)让权等待:</strong> 对于等待的进程，它必须立即释放处理机，以避免进程忙等。</p>
+<h2 id="3-2-实现临界区互斥的基本方法"><a href="#3-2-实现临界区互斥的基本方法" class="headerlink" title="3.2 实现临界区互斥的基本方法"></a>3.2 实现临界区互斥的基本方法</h2><h3 id="1-用软件实现的同步互斥机制"><a href="#1-用软件实现的同步互斥机制" class="headerlink" title="1.用软件实现的同步互斥机制"></a>1.用软件实现的同步互斥机制</h3><p>(1)算法一:单标志法<br>(2)算法二:双标志法先检查<br>(3)算法三:双标志法后检查<br>(4)算法四:Peterson’s Algorithm</p>
+<h3 id="2-进程互斥的硬件方法"><a href="#2-进程互斥的硬件方法" class="headerlink" title="2.进程互斥的硬件方法"></a>2.进程互斥的硬件方法</h3><p>(1)检测和设置(TS)指令<br>(2)swap 指令(或 exchange 指令)该指令的作用是交换两个字(字节)的内容</p>
+<h2 id="3-3-信号量"><a href="#3-3-信号量" class="headerlink" title="3.3 信号量"></a>3.3 信号量</h2><p>对信号量 S 进行 P 操作，记为 P(S)，处理过程如下<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">—S.Q; //表示申请一个资源</span><br><span class="line">if (S.Q &lt; 0) //表示没有空闲资源</span><br><span class="line">&#123;</span><br><span class="line">调用进程进入等待队列 S.Q;</span><br><span class="line">阻塞调用进程;</span><br><span class="line">&#125;</span><br><span class="line">对信号量 S 进行 V 操作，记为 V(S)，处理过程如下</span><br><span class="line">++S.Q; //表示释放一个资源</span><br><span class="line">if (S.Q &lt;= 0) //表示有进程处于阻塞状态</span><br><span class="line">&#123;</span><br><span class="line">从等待队列 S.Q 中取出一个进程 P;</span><br><span class="line">进程 P 进入就绪队列;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="3-4-管程"><a href="#3-4-管程" class="headerlink" title="3.4 管程"></a>3.4 管程</h2><p>一个管程定义了一个数据结构和能为并发进程所运行的一组操作，这组操作能同步进 程和改变管程中的数据。<br>  管程由三部分组成:<br>  局部于管程的共享数据说明;<br>  对该数据结构进行操作的一组过程;<br>  对局部于管程的数据设置初始值的语句。</p>
+<h2 id="3-5-经典的同步与互斥问题"><a href="#3-5-经典的同步与互斥问题" class="headerlink" title="3.5 经典的同步与互斥问题"></a>3.5 经典的同步与互斥问题</h2><p>1.生产者-消费者问题用 C 语言和信号量机制描述生产者-消费者问题的程序如下:有界缓冲区的大小为 100。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">#define N 100  //有界缓冲区大小</span><br><span class="line">typedef int semaphore; //定义信号量</span><br><span class="line">semaphore mutex = 1; //临界区互斥信号量</span><br><span class="line">semaphore empty = N; //空闲缓冲区</span><br><span class="line">semaphore full = 0; //缓冲区初始化为空</span><br><span class="line"></span><br><span class="line">void producer(void)</span><br><span class="line">&#123; int item; //局部变量</span><br><span class="line">while(1)</span><br><span class="line">&#123;item = produce_item(); //生产数据</span><br><span class="line">P(empty);//获取空数据槽</span><br><span class="line">P(mutex); //获得进入临界区的信号量</span><br><span class="line">insert_item(item); //将数据放入缓冲池</span><br><span class="line">V(mutex);//释放互斥量</span><br><span class="line">V(full); //数据量加一</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">void consumer(void)</span><br><span class="line">&#123;</span><br><span class="line">int item; //局部变量</span><br><span class="line">while(1)</span><br><span class="line">&#123;</span><br><span class="line">P(full); //获取数据槽</span><br><span class="line">P(mutex);//获得进入临界区的信号量</span><br><span class="line">item = remove_item(); //将数据从缓冲池读出</span><br><span class="line">V(mutex);//释放互斥量</span><br><span class="line">V(empty);//数据量减一，即空槽加一</span><br><span class="line">consume_item(item); //消费数据</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2.读者-写者问题<br>设置互斥信号量 wmutex 表示写者间、读者和写者间互斥，用 readcount 变量来记录读 者数，由于 readcount 是读者间共享变量，属于临界资源，它也需互斥，为此，又增设互 斥信号量 rmutex。程序如下:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">typedef int semaphore; //定义信号量</span><br><span class="line">semaphore rmutex = 1; //读者计数器的互斥量</span><br><span class="line">semaphore wmutex = 1; //写-写，读-写互斥量</span><br><span class="line">int readcount = 0; //读者计数器</span><br><span class="line">void reader(void)//读者进程</span><br><span class="line">&#123;</span><br><span class="line">While (1) //进程被调度</span><br><span class="line">&#123;</span><br><span class="line"> P(rmutex); //取得读者计数器的互斥量</span><br><span class="line">readcount = readcount + 1;//进来一个读者，读者数量加一</span><br><span class="line">if (readcount == 1) P(wmutex); //如果是第一个读者，取得读-写互斥量</span><br><span class="line">V(rmutex);//释放读者计数器的互斥量</span><br><span class="line">read_data_base();//读数据</span><br><span class="line">P(rmutex);//读者读完数据要离开，先取得读者计数器的互斥量</span><br><span class="line">readcount = readcount – 1; //读者数量减一</span><br><span class="line">if(readcount == 0) V(wmutex); //如果是最后一个离开的读者，释放读-写互斥量</span><br><span class="line">V(rmutex); //释放读者计数器的互斥量</span><br><span class="line">use_dataread(); //读者使用数据</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">void writer(void) //写者进程</span><br><span class="line">&#123;</span><br><span class="line">While (1)  //进程得到调度</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">think_up_data();//写者产生数据</span><br><span class="line"> P(wmutex);  //获得写-写，读-写操作互斥量</span><br><span class="line">write_data_base();  //写入数据库</span><br><span class="line">V(wmutex); //释放写-写，读-写操作互斥量</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3.哲学家进餐问题解决办法 (1)至多只允许四个哲学家同时进餐，以保证至少有一个哲学家可以获得二只筷子:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">typedef int semaphore; //定义信号量semaphore chopstick[5]=&#123;1，1，1，1，1&#125;;//初始化信号量</span><br><span class="line">semaphore eating = 4; //仅允许四个哲学家可以进餐</span><br><span class="line">void philosopher(int i) //第 i 个哲学家的程序</span><br><span class="line">&#123;</span><br><span class="line">while(1)</span><br><span class="line">&#123; thinking();//工作之一</span><br><span class="line"> P(eating);//请求进餐，若是第五个则先挨饿</span><br><span class="line"> P(chopstick[i]); //请求左手边的筷子</span><br><span class="line">P(chopstick[(i+1)%5]);//请求右手边的筷子</span><br><span class="line">eating();  //进餐</span><br><span class="line">V(chopstick[(i+1)%5]); //释放右手边的筷子</span><br><span class="line">V(chopstick[i]); //释放左手边的筷子</span><br><span class="line">V(eating); //释放信号量给其他挨饿的哲学家</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>(2)另一种解决方法，仅当哲学家的左、右两支筷子均可用时，才允许他拿起筷子进餐。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">typedef int semaphore; //定义信号量 semaphore chopstick[5]=&#123;1，1，1，1，1&#125;;//初始化信号量</span><br><span class="line">semaphore mutex = 1;//设置取筷子的信号量</span><br><span class="line"> void philosopher(int i)//第 i 个哲学家的程序</span><br><span class="line"> &#123;</span><br><span class="line">while(1)</span><br><span class="line">&#123; thinking();</span><br><span class="line">P(mutex); //在取筷子前获得互斥量</span><br><span class="line">P(chopstick[i]);</span><br><span class="line">P(chopstick[(i+1)]%5);</span><br><span class="line">V(mutex);//释放互斥量</span><br><span class="line">eating();</span><br><span class="line">V(chopstick[(i+1)]%5);</span><br><span class="line">V(chopstick[i]);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>(3)规定奇数号哲学家先拿起其左边筷子，然后再去拿右边筷子;而偶数号哲学家则 相反。程序代码如下:<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">typedef int semaphore; //定义信号量 semaphore chopstick[5]=&#123;1，1，1，1，1&#125;;//初始化信号量</span><br><span class="line">void philosopher(int i)//第 i 个哲学家的程序</span><br><span class="line">&#123;</span><br><span class="line">while(1)&#123; thinking();</span><br><span class="line">if(i%2 == 0) //偶数哲学家，先右后左</span><br><span class="line">&#123;</span><br><span class="line"> P(chopstick[i+1]%5);</span><br><span class="line">P(chopstick[i]);</span><br><span class="line">eating();</span><br><span class="line">V(chopstick[i+1]%5);</span><br><span class="line">V(chopstick[i]);</span><br><span class="line">&#125;</span><br><span class="line"> else&#123; //奇数哲学家，先左后右</span><br><span class="line">P(chopstick[i]);</span><br><span class="line">P(chopstick[i+1]%5) ;</span><br><span class="line">eating();</span><br><span class="line">V(chopstick[i]);</span><br><span class="line">V(chopstick[i+1]%5);</span><br><span class="line">&#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/操作系统/">操作系统</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">Like this article? Support the author with</h3>
+        <div class="buttons is-centered">
+            
+                
+<div class="notification is-danger">
+    You forgot to set the <code>qrcode</code> for Alipay. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                
+<div class="notification is-danger">
+    You forgot to set the <code>qrcode</code> for Wechat. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                <!-- Visit https://www.paypal.com/donate/buttons/ to get your donate button -->
+
+<div class="notification is-danger">
+    You forgot to set the <code>business</code> and <code>currency_code</code> for Paypal. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                
+<div class="notification is-danger">
+    You forgot to set the <code>url</code> Patreon. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2016/03/18/技术/01|操作系统/01-技术-01-操作系统-02-进程管理-04死锁/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">01 CS | 01 操作系统 |  02 进程管理  | 04 死锁</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2016/03/11/技术/01|操作系统/01-技术-01-操作系统-02-进程管理-02-处理机调度/">
+                <span class="level-item">01 CS | 01 操作系统 |  02 进程管理  | 02 处理机调度</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    
+                        <img class="image is-128x128 has-mb-6" src="/images/avatar.png" alt="Sin（许思寅）">
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        Sin（许思寅）
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        多元创作者
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>上海</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Posts
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        25
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Categories
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        0
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Tags
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        3
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="http://github.com/" target="_blank">
+                Follow</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="http://github.com/">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="http://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="http://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="http://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Links
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categories
+            </h3>
+            <ul class="menu-list">
+            
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Tag Cloud
+        </h3>
+        <a href="/tags/操作系统/" style="font-size: 20px;">操作系统</a> <a href="/tags/计算机组成/" style="font-size: 20px;">计算机组成</a> <a href="/tags/计算机网络/" style="font-size: 10px;">计算机网络</a>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/03/18/01-CS-06-iOS开发-01-Swift学习手册/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt>
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-17T17:03:35.706Z">2019-03-18</time></div>
+                    <a href="/2019/03/18/01-CS-06-iOS开发-01-Swift学习手册/" class="has-link-black-ter is-size-6"></a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/22/01-CS-03-计算机组成-10-控制单元/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 10 控制单元">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-22T14:53:17.000Z">2016-06-22</time></div>
+                    <a href="/2016/06/22/01-CS-03-计算机组成-10-控制单元/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 10 控制单元</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/22/技术/03|计算机组成/01-CS-03-计算机组成-10-控制单元/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 10 控制单元">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-22T14:53:17.000Z">2016-06-22</time></div>
+                    <a href="/2016/06/22/技术/03|计算机组成/01-CS-03-计算机组成-10-控制单元/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 10 控制单元</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/18/技术/03|计算机组成/01-CS-03-计算机组成-09-控制单元的功能/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 09 控制单元的功能">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-17T16:22:35.000Z">2016-06-18</time></div>
+                    <a href="/2016/06/18/技术/03|计算机组成/01-CS-03-计算机组成-09-控制单元的功能/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 09 控制单元的功能</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/14/技术/03|计算机组成/01-CS-03-计算机组成-08-CPU的结构和功能/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 08 CPU的结构和功能">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-14T03:21:24.000Z">2016-06-14</time></div>
+                    <a href="/2016/06/14/技术/03|计算机组成/01-CS-03-计算机组成-08-CPU的结构和功能/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 08 CPU的结构和功能</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/04/">
+                <span class="level-start">
+                    <span class="level-item">April 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">9</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/操作系统/">
+                        <span class="tag">操作系统</span>
+                        <span class="tag is-grey">11</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/计算机组成/">
+                        <span class="tag">计算机组成</span>
+                        <span class="tag is-grey">11</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/计算机网络/">
+                        <span class="tag">计算机网络</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/03/18/01-CS-06-iOS开发-01-Swift学习手册/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt>
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-17T17:03:35.706Z">2019-03-18</time></div>
+                    <a href="/2019/03/18/01-CS-06-iOS开发-01-Swift学习手册/" class="has-link-black-ter is-size-6"></a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/22/01-CS-03-计算机组成-10-控制单元/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 10 控制单元">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-22T14:53:17.000Z">2016-06-22</time></div>
+                    <a href="/2016/06/22/01-CS-03-计算机组成-10-控制单元/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 10 控制单元</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/22/技术/03|计算机组成/01-CS-03-计算机组成-10-控制单元/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 10 控制单元">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-22T14:53:17.000Z">2016-06-22</time></div>
+                    <a href="/2016/06/22/技术/03|计算机组成/01-CS-03-计算机组成-10-控制单元/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 10 控制单元</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/18/技术/03|计算机组成/01-CS-03-计算机组成-09-控制单元的功能/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 09 控制单元的功能">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-17T16:22:35.000Z">2016-06-18</time></div>
+                    <a href="/2016/06/18/技术/03|计算机组成/01-CS-03-计算机组成-09-控制单元的功能/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 09 控制单元的功能</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/14/技术/03|计算机组成/01-CS-03-计算机组成-08-CPU的结构和功能/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 08 CPU的结构和功能">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-14T03:21:24.000Z">2016-06-14</time></div>
+                    <a href="/2016/06/14/技术/03|计算机组成/01-CS-03-计算机组成-08-CPU的结构和功能/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 08 CPU的结构和功能</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/04/">
+                <span class="level-start">
+                    <span class="level-item">April 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">9</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/操作系统/">
+                        <span class="tag">操作系统</span>
+                        <span class="tag is-grey">11</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/计算机组成/">
+                        <span class="tag">计算机组成</span>
+                        <span class="tag is-grey">11</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/计算机网络/">
+                        <span class="tag">计算机网络</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="01 CS | 01 操作系统 |  02 进程管理  | 03 同步与互斥" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 Sin 许思寅&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-Hans");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>01 CS | 01 操作系统 |  04 文件管理  | 01 文件系统基础 - Sin&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="1.1 文件的概念1.文件定义文件是具有符号名的一组信息的集合。 2.文件属性文件的属性是指与文件记录的数据相关的所有相关信息，包括:基本信息: 文件名，文件别名，文件类型等;存储地址信息: 文件物理位置，文件长 度;文件访问控制信息: 文件的创建者，所有者，许可那些用户能够读写或运行;文件使用信息: 文件创建的时间日期，最近的使用日期时间等。 3.文件操作对文件操作有创建文件、读文件、写文件、截">
+<meta name="keywords" content="操作系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="01 CS | 01 操作系统 |  04 文件管理  | 01 文件系统基础">
+<meta property="og:url" content="http://yoursite.com/2016/03/25/技术/01|操作系统/01-技术-01-操作系统-04-文件管理-01文件系统基础/index.html">
+<meta property="og:site_name" content="Sin&#39;s Blog">
+<meta property="og:description" content="1.1 文件的概念1.文件定义文件是具有符号名的一组信息的集合。 2.文件属性文件的属性是指与文件记录的数据相关的所有相关信息，包括:基本信息: 文件名，文件别名，文件类型等;存储地址信息: 文件物理位置，文件长 度;文件访问控制信息: 文件的创建者，所有者，许可那些用户能够读写或运行;文件使用信息: 文件创建的时间日期，最近的使用日期时间等。 3.文件操作对文件操作有创建文件、读文件、写文件、截">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-16T19:23:51.519Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="01 CS | 01 操作系统 |  04 文件管理  | 01 文件系统基础">
+<meta name="twitter:description" content="1.1 文件的概念1.文件定义文件是具有符号名的一组信息的集合。 2.文件属性文件的属性是指与文件记录的数据相关的所有相关信息，包括:基本信息: 文件名，文件别名，文件类型等;存储地址信息: 文件物理位置，文件长 度;文件访问控制信息: 文件的创建者，所有者，许可那些用户能够读写或运行;文件使用信息: 文件创建的时间日期，最近的使用日期时间等。 3.文件操作对文件操作有创建文件、读文件、写文件、截">
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="01 CS | 01 操作系统 |  04 文件管理  | 01 文件系统基础" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2016-03-25T05:00:22.000Z">2016-03-25</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    13 minutes read (About 1887 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                01 CS | 01 操作系统 |  04 文件管理  | 01 文件系统基础
+            
+        </h1>
+        <div class="content">
+            <h2 id="1-1-文件的概念"><a href="#1-1-文件的概念" class="headerlink" title="1.1 文件的概念"></a>1.1 文件的概念</h2><h3 id="1-文件定义"><a href="#1-文件定义" class="headerlink" title="1.文件定义"></a>1.文件定义</h3><p>文件是具有符号名的一组信息的集合。</p>
+<h3 id="2-文件属性"><a href="#2-文件属性" class="headerlink" title="2.文件属性"></a>2.文件属性</h3><p>文件的属性是指与文件记录的数据相关的所有相关信息，<br>包括:<br><strong>基本信息:</strong> 文件名，文件别名，文件类型等;<br><strong>存储地址信息:</strong> 文件物理位置，文件长 度;<br><strong>文件访问控制信息:</strong> 文件的创建者，所有者，许可那些用户能够读写或运行;<br><strong>文件使用信息:</strong> 文件创建的时间日期，最近的使用日期时间等。</p>
+<h3 id="3-文件操作"><a href="#3-文件操作" class="headerlink" title="3.文件操作"></a>3.文件操作</h3><p>对文件操作有创建文件、读文件、写文件、截断文件、设置文件的访问位置等。 对记录的操作有插入记录、修改记录、删除记录、检索记录等。</p>
+<h2 id="4-1-2-文件结构·"><a href="#4-1-2-文件结构·" class="headerlink" title="4.1.2 文件结构·"></a>4.1.2 文件结构·</h2><h3 id="1-文件逻辑结构"><a href="#1-文件逻辑结构" class="headerlink" title="1.文件逻辑结构"></a>1.文件逻辑结构</h3><p> 文件逻辑结构指用户概念中的文件，独立于物理结构，又称逻辑文件。<br>一般常用的文件其结构主要分为如下三类:<br> (1)无结构文件:把文件看作是命名了相关联的字符流集合，或称流式文件。<br>(2)累积文件:文件体为无结构记录序列，通过特定分隔符来划分记录，各记录大小 和组成可变。新记录总是添加到文件末尾。<br> (3)索引文件:记录大小不必相同，不必排序，存放在主文件中。索引文件主文件不 排序。另外建立索引，每个索引项指向一个记录，索引项按照记录中的某个关键字域排序。</p>
+<h3 id="2-文件物理结构"><a href="#2-文件物理结构" class="headerlink" title="2.文件物理结构"></a>2.文件物理结构</h3><p>文件物理结构是指文件在存储介质上的组织方式，它依赖于物理的存储设备，又称物 理文件。<br>常用的文件物理结构有:<br> <strong>(1)顺序结构:</strong> 是把一个逻辑上连续的记录构成的文件分配到连续的物理块中。<br> <strong>(2)链接结构:</strong> 把文件信息存放在非连续的物理块中，每个物理块均设有一个指针指 向其后续连续的另一个物理块，从而使得存放同一文件的物理块链接成一个串联队列。链 接方式又分为显式链接和隐式链接。显式链接的链接指针在专门的链接表中，隐式链接的 指针在存放文件信息的物理块中。<br><strong>(3)索引结构:</strong> 指为每个文件建立一个索引表，其中每一个表项指出文件记录所在的 物理块号，表项按逻辑记录编写，顺序或按记录内某一关键字顺序排列，对于大文件，为 检索方便，可以建立多级索引，还可以把文件索引表也作为一个文件，称为索引表文件。<br>多重索引结构(混合索引结构)采用了间接索引方式，第一级索引表的表项指出下一 级索引表的位置(物理块号)，下一级索引表的表项指出再下一级索引表的位置，这样间接 几级，最末—级索引表的表项则指向相应记录所在的物理块号。</p>
+<h2 id="4-1-3-目录结构"><a href="#4-1-3-目录结构" class="headerlink" title="4.1.3 目录结构"></a>4.1.3 目录结构</h2><p>为实现“按名存取”，必须建立文件名与外存空间中的物理地址的对应关系，体现这种 对应关系的数据结构称为目录。</p>
+<h3 id="1-文件目录管理基本要求"><a href="#1-文件目录管理基本要求" class="headerlink" title="1.文件目录管理基本要求"></a>1.文件目录管理基本要求</h3><p>实现“按名存取”:用户只需提供文件名，即可对文件进行存取，这是目录管理基本功 能。实现文件共享:允许不同的用户使用同一个文件。 允许文件重名:采用多级目录。</p>
+<h3 id="2-文件组成"><a href="#2-文件组成" class="headerlink" title="2.文件组成"></a>2.文件组成</h3><p>文件包含两部分内容:文件说明(或称文件头)与文件体。文件体是文件本身的信息，<br>可能是记录式文件或是字符流式文件。文件说明就是文件控制块。目录是由一组文件的文 件说明(即文件控制块 FCB)组成的文件，它本身也是一种文件。</p>
+<h3 id="3-文件控制块-FCB-组成"><a href="#3-文件控制块-FCB-组成" class="headerlink" title="3.文件控制块(FCB)组成"></a>3.文件控制块(FCB)组成</h3><p> <strong>(1)基本信息类:</strong> 文件名、文件外存地址、文件逻辑结构、文件物理结构。<br> <strong>(2)存储控制信息类:</strong> 文件拥有者的权限、核准用户的权限、一般用户的权限。<br><strong>(3)使用信息类:</strong> 文件建立的日期与时间，上一次修改的日期与时间、当前的使用信<br>息。</p>
+<h3 id="4-文件目录组织形式"><a href="#4-文件目录组织形式" class="headerlink" title="4.文件目录组织形式"></a>4.文件目录组织形式</h3><p>(1)单级目录结构<br>(2)二级目录结构<br>(3)多级目录结构 多级目录由称为树形目录，将文件的多级目录结构以图形化表示，即是图形化目录。</p>
+<h2 id="1-4-文件共享"><a href="#1-4-文件共享" class="headerlink" title="1.4 文件共享"></a>1.4 文件共享</h2><p>  文件共享是指在不同用户之间共同使用某些文件。实现文件共享主要有三种方式:<br><strong>(1)绕道法(软链接法):</strong> 路径名是由当前目录到信息文件通路上所有各级目录的目 录名加上该信息文件的符号名组成。<br><strong>(2)链接法(硬链接法):</strong> 即一个目录中的一个表项直接指向被共享文件所在的目录 表项，而不是直接指向文件。<br><strong>(3)基本目录表方法</strong><br>基本文件目录和符号文件目录结构是把所有文件目录的内容分成两部分:一部分包括 文件的结构信息、物理块号、存取控制和管理信息等文件说明，并用文件系统赋予的唯一 的内部标识符来标识;另一部分包括符号文件名和系统赋予的该文件的内部标识符组成。 这两部分分别称为基本文件目录表(BFD)和符号文件目录表(SFD)。</p>
+<h2 id="4-1-5-文件保护"><a href="#4-1-5-文件保护" class="headerlink" title="4.1.5 文件保护"></a>4.1.5 文件保护</h2><h3 id="1-访问类型"><a href="#1-访问类型" class="headerlink" title="1.访问类型"></a>1.访问类型</h3><p>通过限制可进行的文件访问类型，保护机制可提供控制访问(特别地为防止文件被破 坏，一般对写和修改操作需要特别控制)。访问类型有:<br>读;写;修改;运行;添加;删除;列表清单。</p>
+<h3 id="2-访问控制"><a href="#2-访问控制" class="headerlink" title="2.访问控制"></a>2.访问控制</h3><p>解决文件保护问题最为常用的是根据用户身份进行控制。实现基于身份访问的最普通<br>方法是为每个文件或目录增加一个访问控制列表。所有用户组对文件权限的集合形成了一 个二维表即文件访问控制表，不同用户对同一文件或目录需要不同类型的访问。</p>
+<h3 id="3-文件系统安全"><a href="#3-文件系统安全" class="headerlink" title="3.文件系统安全"></a>3.文件系统安全</h3><p>为了尽量减少在系统发生故障时文件信息破坏，最简便的措施是为重要的文件保存多 个副本，即“定期转储”，当系统出现故障，就可以装入转储的文件来恢复文件系统。<br><strong>(1)全量转储:</strong> 把文件存储器中的全部文件定期(例，每周、每天)复制到备份磁带 上。<br><strong>(2)增量转储:</strong> 全量转储只能恢复上次转储时的状态。</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/操作系统/">操作系统</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">Like this article? Support the author with</h3>
+        <div class="buttons is-centered">
+            
+                
+<div class="notification is-danger">
+    You forgot to set the <code>qrcode</code> for Alipay. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                
+<div class="notification is-danger">
+    You forgot to set the <code>qrcode</code> for Wechat. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                <!-- Visit https://www.paypal.com/donate/buttons/ to get your donate button -->
+
+<div class="notification is-danger">
+    You forgot to set the <code>business</code> and <code>currency_code</code> for Paypal. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                
+<div class="notification is-danger">
+    You forgot to set the <code>url</code> Patreon. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2016/03/29/技术/01|操作系统/01-CS-01-操作系统-04-文件管理-02-文件系统实现-03-磁盘组织与管理/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">01 CS  | 01 操作系统 |  04 文件管理  | 02 文件系统实现 &amp; 03 磁盘组织与管理</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2016/03/21/技术/01|操作系统/01-技术-01-操作系统-03-进程管理-02虚拟内存管理/">
+                <span class="level-item">01 CS | 01 操作系统 |  03 进程管理  | 02 虚拟内存管理</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    
+                        <img class="image is-128x128 has-mb-6" src="/images/avatar.png" alt="Sin（许思寅）">
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        Sin（许思寅）
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        多元创作者
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>上海</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Posts
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        25
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Categories
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        0
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Tags
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        3
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="http://github.com/" target="_blank">
+                Follow</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="http://github.com/">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="http://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="http://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="http://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Links
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categories
+            </h3>
+            <ul class="menu-list">
+            
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Tag Cloud
+        </h3>
+        <a href="/tags/操作系统/" style="font-size: 20px;">操作系统</a> <a href="/tags/计算机组成/" style="font-size: 20px;">计算机组成</a> <a href="/tags/计算机网络/" style="font-size: 10px;">计算机网络</a>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/03/18/01-CS-06-iOS开发-01-Swift学习手册/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt>
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-17T17:03:35.706Z">2019-03-18</time></div>
+                    <a href="/2019/03/18/01-CS-06-iOS开发-01-Swift学习手册/" class="has-link-black-ter is-size-6"></a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/22/01-CS-03-计算机组成-10-控制单元/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 10 控制单元">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-22T14:53:17.000Z">2016-06-22</time></div>
+                    <a href="/2016/06/22/01-CS-03-计算机组成-10-控制单元/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 10 控制单元</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/22/技术/03|计算机组成/01-CS-03-计算机组成-10-控制单元/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 10 控制单元">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-22T14:53:17.000Z">2016-06-22</time></div>
+                    <a href="/2016/06/22/技术/03|计算机组成/01-CS-03-计算机组成-10-控制单元/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 10 控制单元</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/18/技术/03|计算机组成/01-CS-03-计算机组成-09-控制单元的功能/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 09 控制单元的功能">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-17T16:22:35.000Z">2016-06-18</time></div>
+                    <a href="/2016/06/18/技术/03|计算机组成/01-CS-03-计算机组成-09-控制单元的功能/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 09 控制单元的功能</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/14/技术/03|计算机组成/01-CS-03-计算机组成-08-CPU的结构和功能/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 08 CPU的结构和功能">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-14T03:21:24.000Z">2016-06-14</time></div>
+                    <a href="/2016/06/14/技术/03|计算机组成/01-CS-03-计算机组成-08-CPU的结构和功能/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 08 CPU的结构和功能</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/04/">
+                <span class="level-start">
+                    <span class="level-item">April 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">9</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/操作系统/">
+                        <span class="tag">操作系统</span>
+                        <span class="tag is-grey">11</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/计算机组成/">
+                        <span class="tag">计算机组成</span>
+                        <span class="tag is-grey">11</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/计算机网络/">
+                        <span class="tag">计算机网络</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/03/18/01-CS-06-iOS开发-01-Swift学习手册/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt>
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-17T17:03:35.706Z">2019-03-18</time></div>
+                    <a href="/2019/03/18/01-CS-06-iOS开发-01-Swift学习手册/" class="has-link-black-ter is-size-6"></a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/22/01-CS-03-计算机组成-10-控制单元/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 10 控制单元">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-22T14:53:17.000Z">2016-06-22</time></div>
+                    <a href="/2016/06/22/01-CS-03-计算机组成-10-控制单元/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 10 控制单元</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/22/技术/03|计算机组成/01-CS-03-计算机组成-10-控制单元/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 10 控制单元">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-22T14:53:17.000Z">2016-06-22</time></div>
+                    <a href="/2016/06/22/技术/03|计算机组成/01-CS-03-计算机组成-10-控制单元/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 10 控制单元</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/18/技术/03|计算机组成/01-CS-03-计算机组成-09-控制单元的功能/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 09 控制单元的功能">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-17T16:22:35.000Z">2016-06-18</time></div>
+                    <a href="/2016/06/18/技术/03|计算机组成/01-CS-03-计算机组成-09-控制单元的功能/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 09 控制单元的功能</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/14/技术/03|计算机组成/01-CS-03-计算机组成-08-CPU的结构和功能/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 08 CPU的结构和功能">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-14T03:21:24.000Z">2016-06-14</time></div>
+                    <a href="/2016/06/14/技术/03|计算机组成/01-CS-03-计算机组成-08-CPU的结构和功能/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 08 CPU的结构和功能</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/04/">
+                <span class="level-start">
+                    <span class="level-item">April 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">9</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/操作系统/">
+                        <span class="tag">操作系统</span>
+                        <span class="tag is-grey">11</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/计算机组成/">
+                        <span class="tag">计算机组成</span>
+                        <span class="tag is-grey">11</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/计算机网络/">
+                        <span class="tag">计算机网络</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="01 CS | 01 操作系统 |  04 文件管理  | 01 文件系统基础" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 Sin 许思寅&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-Hans");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

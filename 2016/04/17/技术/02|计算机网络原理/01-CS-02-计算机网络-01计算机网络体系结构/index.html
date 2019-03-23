@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>01 CS  | 02 计算机网络 |  01计算机网络体系结构  - Sin&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="1计算机网络概述 1.1计算机网络的概念、组成与功能  计算机网络: 就是利用通信设备和线路将地理位置不同的、功能独立的多个计算机系统互连起来，以功能完善的网络软件(即网络通信协议、信息交换方式、网络操作系统等)实现网络中资源共享和信息传递的系统。 1.2计算机网络的分类1. 环形结构2. 总线结构3. 网状结构 1.3计算机网络的标准化工作及相关组织 国际上制定通信协议和标准的主要组织有以下几个">
+<meta name="keywords" content="计算机网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="01 CS  | 02 计算机网络 |  01计算机网络体系结构 ">
+<meta property="og:url" content="http://yoursite.com/2016/04/17/技术/02|计算机网络原理/01-CS-02-计算机网络-01计算机网络体系结构/index.html">
+<meta property="og:site_name" content="Sin&#39;s Blog">
+<meta property="og:description" content="1计算机网络概述 1.1计算机网络的概念、组成与功能  计算机网络: 就是利用通信设备和线路将地理位置不同的、功能独立的多个计算机系统互连起来，以功能完善的网络软件(即网络通信协议、信息交换方式、网络操作系统等)实现网络中资源共享和信息传递的系统。 1.2计算机网络的分类1. 环形结构2. 总线结构3. 网状结构 1.3计算机网络的标准化工作及相关组织 国际上制定通信协议和标准的主要组织有以下几个">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-17T07:37:00.246Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="01 CS  | 02 计算机网络 |  01计算机网络体系结构 ">
+<meta name="twitter:description" content="1计算机网络概述 1.1计算机网络的概念、组成与功能  计算机网络: 就是利用通信设备和线路将地理位置不同的、功能独立的多个计算机系统互连起来，以功能完善的网络软件(即网络通信协议、信息交换方式、网络操作系统等)实现网络中资源共享和信息传递的系统。 1.2计算机网络的分类1. 环形结构2. 总线结构3. 网状结构 1.3计算机网络的标准化工作及相关组织 国际上制定通信协议和标准的主要组织有以下几个">
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="01 CS  | 02 计算机网络 |  01计算机网络体系结构 " height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2016-04-17T07:31:08.000Z">2016-04-17</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    15 minutes read (About 2320 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                01 CS  | 02 计算机网络 |  01计算机网络体系结构 
+            
+        </h1>
+        <div class="content">
+            <p>1计算机网络概述</p>
+<h2 id="1-1计算机网络的概念、组成与功能"><a href="#1-1计算机网络的概念、组成与功能" class="headerlink" title="1.1计算机网络的概念、组成与功能"></a>1.1计算机网络的概念、组成与功能</h2><p>  <strong>计算机网络:</strong> 就是利用通信设备和线路将地理位置不同的、功能独立的多个计算机系统互连起来，以功能完善的网络软件(即网络通信协议、信息交换方式、网络操作系统等)实现网络中资源共享和信息传递的系统。</p>
+<h2 id="1-2计算机网络的分类"><a href="#1-2计算机网络的分类" class="headerlink" title="1.2计算机网络的分类"></a>1.2计算机网络的分类</h2><p><strong>1. 环形结构</strong><br><strong>2. 总线结构</strong><br><strong>3. 网状结构</strong></p>
+<h2 id="1-3计算机网络的标准化工作及相关组织-国际上制定通信协议和标准的主要组织有以下几个"><a href="#1-3计算机网络的标准化工作及相关组织-国际上制定通信协议和标准的主要组织有以下几个" class="headerlink" title="1.3计算机网络的标准化工作及相关组织 国际上制定通信协议和标准的主要组织有以下几个:"></a>1.3计算机网络的标准化工作及相关组织 国际上制定通信协议和标准的主要组织有以下几个:</h2><p>(1)IEEE:(2)ISO:(3)ITU</p>
+<h1 id="2计算机网络体系结构与参考模型"><a href="#2计算机网络体系结构与参考模型" class="headerlink" title="2计算机网络体系结构与参考模型"></a>2计算机网络体系结构与参考模型</h1><h2 id="2-1计算机网络分层结构"><a href="#2-1计算机网络分层结构" class="headerlink" title="2.1计算机网络分层结构"></a>2.1计算机网络分层结构</h2><p>对于非常复杂的计算机网络协议，最好的方法是采用分层式结构。<br>每一层关注和解决通信中的某 一方面的规则。<br>各层之间是独立的，灵活性好，结构上可以分开，易于实现和维护，促进标准化工作。</p>
+<h2 id="2-2计算机网络协议、接口、服务等概念"><a href="#2-2计算机网络协议、接口、服务等概念" class="headerlink" title="2.2计算机网络协议、接口、服务等概念"></a>2.2计算机网络协议、接口、服务等概念</h2><p><strong>1.协议</strong><br>  协议总是指某一层协议，准确地说，它是对同等实体之间的通信制定的有关通信规则约定的集合。网<br>络协议的三个要素:<br>(1)语义(Semantics)。<br>(2)语法(Syntax)。<br>(3)同步即定时(Timing)。<br> <strong>2 接口</strong>(服务访问点)同一系统中相邻两层的实体进行交互的地方。<br><strong>3.服务(service)</strong> 为保证上层对等体之间能相互通信，下层向上层提供的功能。</p>
+<h2 id="2-3-ISO-OSI参考模型和-TCP-IP-模型"><a href="#2-3-ISO-OSI参考模型和-TCP-IP-模型" class="headerlink" title="2.3 ISO/OSI参考模型和 TCP/IP**模型"></a>2.3 ISO/OSI<strong>参考模型和 </strong>TCP/IP**模型</h2><h3 id="1-ISO-OSI-参考模型"><a href="#1-ISO-OSI-参考模型" class="headerlink" title="1.ISO/OSI 参考模型**"></a>1.ISO/OSI 参考模型**</h3><p>  各节点有相同的层次。<br>  同一节点的相邻层之间通过接口通信。<br>  下层为上层服务。<br>图1<br>[image:B22A6F0A-8269-42A1-A362-E66EF2FC2DA3-1171-00003908EFD3EB98/F31A3E4B-9901-45AD-BA2F-07C3CEA05D8D.png]</p>
+<h4 id="1、物理层"><a href="#1、物理层" class="headerlink" title="1、物理层"></a>1、物理层</h4><pre><code>物理层是 OSI 参考模型的最低一层，也是在同级层之间直接进行信息交换的唯一一层。物理层负责 传输二进制位流，它的任务就是为上层(数据链路层)提供一个物理连接，以便在相邻节点之间无差错地 传送二进制位流。
+有一点应该注意的是，传送二进制位流的传输介质，如双绞线、同轴电缆以及光纤等并不属于物理层 要考虑的问题。实际上传输介质并不在 OSI 的 7 个层次之内。
+</code></pre><p><strong>· 电气特性:</strong> 电缆上什么样的电压表示 1 或 0<br><strong>· 机械特性:</strong> 接口所用的接线器的形状和尺寸· 过程特性:不同功能的各种可能事件的出现顺序以及各信号线的工作原理· 功能特性:某条线上出现的某一电平的电压表示何种意义</p>
+<h4 id="2、数据链路层数据链路层"><a href="#2、数据链路层数据链路层" class="headerlink" title="2、数据链路层数据链路层"></a>2、数据链路层数据链路层</h4><p>负责在两个相邻节点之间，无差错地传送以 “ 帧 ” 为单位的数据。每一帧包括一定数 量的数据和若干控制信息。<br>  数据链路的任务首先要负责建立、维持和释放数据链路的连接。<br>在传送数据时，如果接收节点发现数据有错，要通知发送方重发这一帧，直到这一帧正确无误地送到为止。<br>这样，数据链路层就把一条可能出错的链路，转变成让网络层看起来就像是一条不出错的理想链路。</p>
+<h4 id="3、网络层"><a href="#3、网络层" class="headerlink" title="3、网络层"></a>3、网络层</h4><p>网络层的 <strong>主要功能</strong> 是为处在不同网络系统中的两个节点设备通信提供一条逻辑通路。<br><strong>其基本任务</strong> 包括 路由选择、拥塞控制与网络互联等功能。</p>
+<h4 id="4、传输层"><a href="#4、传输层" class="headerlink" title="4、传输层"></a>4、传输层</h4><p>传输层的 <strong>主要任务</strong> 是向用户提供可靠的端到端( end-to-end )服务，透明地传送报文。<br>它向高层屏蔽 了下层数据通信的细节，因而是计算机通信体系结构中最关键的一层。<br>该层关心的主要问题包括建立、维 护和中断虚电路、传输差错校验和恢复以及信息流量控制机制等。</p>
+<h4 id="5、会话层"><a href="#5、会话层" class="headerlink" title="5、会话层"></a>5、会话层</h4><p>负责通讯的双方在正式开始传输前的沟通，目的在于建立传输时所遵循的规则，使传输更顺畅、有效 率。<br>沟通的议题包括:使用全双工模式或半双式模式?如何发起传输?如何结束传输?如何设置传输参数 就像两国元首在见面会晤之前，总会先派人谈好议事规则，正式谈判时就根据这套规则进行一样。</p>
+<h4 id="6、表示层"><a href="#6、表示层" class="headerlink" title="6、表示层"></a>6、表示层</h4><p>表示层处理两个应用实体之间进行数据交换的语法问题，解决数据交换中存在的数据格式不一致以及 数据表示方法不同等问题。例如， IBM 系统的用户使用 EBCD 编码，而其它用户使用 ASCII 编码。表 示层必须提供这两编码的转换服务。数据加密与解密、数据压缩与恢复等也都是表示层提供的服务。</p>
+<h4 id="、应用层"><a href="#、应用层" class="headerlink" title="、应用层"></a>、应用层</h4><p>应用层是 OSI 参考模型中最靠近用户的一层，它直接提供文件传输、电子邮件、网页浏览等服务给 用户。</p>
+<p>图2<br>[image:B3CF0BE2-FB01-4B53-A9A2-FCBB15E58215-1171-00003911E2F9E019/E86A77A8-EB49-427A-8FDB-9B4E5D1EB1DE.png]</p>
+<h3 id="2-TCP-IP-模型"><a href="#2-TCP-IP-模型" class="headerlink" title="2.TCP/IP 模型"></a>2.TCP/IP 模型</h3><p>图3</p>
+<p>[image:BD011852-95EF-45C3-B180-3442AE80FFBA-1171-00003917BA27AD02/341D3EB8-2D6B-4F50-9739-C809BF322004.png]</p>
+<h4 id="1、网络接口层-network-interface-layer"><a href="#1、网络接口层-network-interface-layer" class="headerlink" title="1、网络接口层( network interface layer )**"></a>1、网络接口层( network interface layer )**</h4><p>在 TCP/IP 分层体系结构中，最底层是网络接口层，它 负责通过网络发送和接收 IP 数据报 。TCP/IP 体系结构并未对网络接口层使用权的协议做出强硬的规定，它允许主机连入网络时使用多种现成的和流行 的协议，例如局域网协议或其他一些协议。<br>帧 是 独立的网络信息传输单元 。</p>
+<h4 id="2、网络层-internet-layer"><a href="#2、网络层-internet-layer" class="headerlink" title="2、网络层( internet layer )"></a>2、网络层( internet layer )</h4><p>网际层是 TCP/IP 体系结构的第二层，它实现的功能相当于 OSI 参考模型网络层的无连接网络服务。<br>互联层负责将源主机的报文分组发送到目的的主机，源主机与目的主机可以在一个网上，也可以在不同的<br>网上。<br><strong>( 1 )处理来自传输层的分组发送请求</strong>。在收到分组发送请求之后，将分组装入 IP 数据报，填充报 头，选择发送路径，然后将数据报发送到相应的网络输出线。<br><strong>( 2 )处理接收的数据报。</strong>在接收到其他主机发送的数据报之后，检查目的地址，如需要转发，则 选择发送路径，转发出去;如目的地址为本节点 IP 地址，则除去报头，将分组送交给传输层处理。<br><strong>( 3 )处理互联的路径、流控与拥塞问题。</strong></p>
+<h4 id="3、传输层-transport-layer-网际层之上是传输层，它的主要功能是负责应用进程之间的-端-端-Host-to-host-通信。在-TCP-IP"><a href="#3、传输层-transport-layer-网际层之上是传输层，它的主要功能是负责应用进程之间的-端-端-Host-to-host-通信。在-TCP-IP" class="headerlink" title="3、传输层( transport layer )网际层之上是传输层，它的主要功能是负责应用进程之间的 端 - 端( Host-to-host )通信。在 TCP/IP"></a>3、传输层( transport layer )网际层之上是传输层，它的主要功能是负责应用进程之间的 端 - 端( Host-to-host )通信。在 TCP/IP</h4><p>体系结构中，设计传输层的主要目的是在互联网中源主机与目的主机的对等实体之间建立用于 会话的端 - 端连接 。因此，它与 OSI 参考模型的传输层功能相似。<br>TCP/IP 体系结构的传输层定义了 传输控制协议( TCP ， transport control protocol ) 和 用户数据 报协议( UDP,user datagram protocol ) 两种协议。<br>TCP 协议是一种可靠的面向连接的协议，它允许将一台主机的字节流( byte stream )无差错地传送<br>到目的主机。UDP 协议是一种不可靠的无连接协议，它主要用于不要求分组顺序到达的传输中，分组传输顺序检<br>查与排序由应用层完成。</p>
+<h4 id="4、应用层-application-layer"><a href="#4、应用层-application-layer" class="headerlink" title="4、应用层( application layer )"></a>4、应用层( application layer )</h4><p>在 TCP/IP 体系结构中，应用层是最靠近用户的一层。它包括了所有的高层协议，并且总是不断有新<br>的协议加入。其 主要协议 包括:<br>( 1 )<strong>文件传输协议( FTP ,file transfer protocol )</strong>，用于实现互联网中交互式文件传输功能;<br>( 2 )<strong>简单邮件传输协议( SMTP simple mail transfer protocol )</strong>，用于实现互联网中邮件传送功能;<br> ( 3 )<strong>域名系统( DNS, domain name system )</strong>，用于实现互联网设备名字到 IP 地址映射的网络服<br>务;<br>( 4 )<strong>超文本传输协议( HTTP, byper text transfer protocol )</strong>，用于目前广泛使用的 Web 服务;<br>( 5 )<strong>路由信息协议( RIP, routing information protocol )</strong>，用于网络设备之间交换路由信息;</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/计算机网络/">计算机网络</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">Like this article? Support the author with</h3>
+        <div class="buttons is-centered">
+            
+                
+<div class="notification is-danger">
+    You forgot to set the <code>qrcode</code> for Alipay. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                
+<div class="notification is-danger">
+    You forgot to set the <code>qrcode</code> for Wechat. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                <!-- Visit https://www.paypal.com/donate/buttons/ to get your donate button -->
+
+<div class="notification is-danger">
+    You forgot to set the <code>business</code> and <code>currency_code</code> for Paypal. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                
+<div class="notification is-danger">
+    You forgot to set the <code>url</code> Patreon. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2016/04/27/技术/02|计算机网络原理/01-CS-02-计算机网络-02物理层/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">01 CS  | 02 计算机网络 |  02物理层 </span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2016/04/08/技术/01|操作系统/01-CS-01-操作系统-05-输入输出-O-管理-02-I-O核心子系统/">
+                <span class="level-item">01 CS  | 01 操作系统 |  05 输入输出(/O)管理  | 02   I/O核心子系统</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    
+                        <img class="image is-128x128 has-mb-6" src="/images/avatar.png" alt="Sin（许思寅）">
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        Sin（许思寅）
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        多元创作者
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>上海</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Posts
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        25
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Categories
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        0
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Tags
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        3
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="http://github.com/" target="_blank">
+                Follow</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="http://github.com/">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="http://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="http://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="http://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Links
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categories
+            </h3>
+            <ul class="menu-list">
+            
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Tag Cloud
+        </h3>
+        <a href="/tags/操作系统/" style="font-size: 20px;">操作系统</a> <a href="/tags/计算机组成/" style="font-size: 20px;">计算机组成</a> <a href="/tags/计算机网络/" style="font-size: 10px;">计算机网络</a>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/03/18/01-CS-06-iOS开发-01-Swift学习手册/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt>
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-17T17:03:35.706Z">2019-03-18</time></div>
+                    <a href="/2019/03/18/01-CS-06-iOS开发-01-Swift学习手册/" class="has-link-black-ter is-size-6"></a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/22/01-CS-03-计算机组成-10-控制单元/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 10 控制单元">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-22T14:53:17.000Z">2016-06-22</time></div>
+                    <a href="/2016/06/22/01-CS-03-计算机组成-10-控制单元/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 10 控制单元</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/22/技术/03|计算机组成/01-CS-03-计算机组成-10-控制单元/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 10 控制单元">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-22T14:53:17.000Z">2016-06-22</time></div>
+                    <a href="/2016/06/22/技术/03|计算机组成/01-CS-03-计算机组成-10-控制单元/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 10 控制单元</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/18/技术/03|计算机组成/01-CS-03-计算机组成-09-控制单元的功能/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 09 控制单元的功能">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-17T16:22:35.000Z">2016-06-18</time></div>
+                    <a href="/2016/06/18/技术/03|计算机组成/01-CS-03-计算机组成-09-控制单元的功能/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 09 控制单元的功能</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/14/技术/03|计算机组成/01-CS-03-计算机组成-08-CPU的结构和功能/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 08 CPU的结构和功能">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-14T03:21:24.000Z">2016-06-14</time></div>
+                    <a href="/2016/06/14/技术/03|计算机组成/01-CS-03-计算机组成-08-CPU的结构和功能/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 08 CPU的结构和功能</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/04/">
+                <span class="level-start">
+                    <span class="level-item">April 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">9</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/操作系统/">
+                        <span class="tag">操作系统</span>
+                        <span class="tag is-grey">11</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/计算机组成/">
+                        <span class="tag">计算机组成</span>
+                        <span class="tag is-grey">11</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/计算机网络/">
+                        <span class="tag">计算机网络</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/03/18/01-CS-06-iOS开发-01-Swift学习手册/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt>
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-17T17:03:35.706Z">2019-03-18</time></div>
+                    <a href="/2019/03/18/01-CS-06-iOS开发-01-Swift学习手册/" class="has-link-black-ter is-size-6"></a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/22/01-CS-03-计算机组成-10-控制单元/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 10 控制单元">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-22T14:53:17.000Z">2016-06-22</time></div>
+                    <a href="/2016/06/22/01-CS-03-计算机组成-10-控制单元/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 10 控制单元</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/22/技术/03|计算机组成/01-CS-03-计算机组成-10-控制单元/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 10 控制单元">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-22T14:53:17.000Z">2016-06-22</time></div>
+                    <a href="/2016/06/22/技术/03|计算机组成/01-CS-03-计算机组成-10-控制单元/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 10 控制单元</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/18/技术/03|计算机组成/01-CS-03-计算机组成-09-控制单元的功能/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 09 控制单元的功能">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-17T16:22:35.000Z">2016-06-18</time></div>
+                    <a href="/2016/06/18/技术/03|计算机组成/01-CS-03-计算机组成-09-控制单元的功能/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 09 控制单元的功能</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/14/技术/03|计算机组成/01-CS-03-计算机组成-08-CPU的结构和功能/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 08 CPU的结构和功能">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-14T03:21:24.000Z">2016-06-14</time></div>
+                    <a href="/2016/06/14/技术/03|计算机组成/01-CS-03-计算机组成-08-CPU的结构和功能/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 08 CPU的结构和功能</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/04/">
+                <span class="level-start">
+                    <span class="level-item">April 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">9</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/操作系统/">
+                        <span class="tag">操作系统</span>
+                        <span class="tag is-grey">11</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/计算机组成/">
+                        <span class="tag">计算机组成</span>
+                        <span class="tag is-grey">11</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/计算机网络/">
+                        <span class="tag">计算机网络</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="01 CS  | 02 计算机网络 |  01计算机网络体系结构 " height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 Sin 许思寅&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-Hans");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

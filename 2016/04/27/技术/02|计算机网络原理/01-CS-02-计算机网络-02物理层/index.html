@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>01 CS  | 02 计算机网络 |  02物理层  - Sin&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="1通信基础 1.1信道、信号、宽带、码元、波特、速率、信源与信宿等基本概念(1)信道: 向某一个方向传送信息的媒体。(2)数据: 信息的承载实体。(3)信号: 数据的电磁或电气表现。(4)带宽:媒介中信号可使用的最高频率和最低频率之差，或者说是频带的宽度;另一个定义是信 道中数据的传送速率。 (5)码元: 在使用时间域(简称时域)的波形表示数字信号时，代表不同离散数值的基本波形。(6)波特: 单位">
+<meta name="keywords" content="计算机网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="01 CS  | 02 计算机网络 |  02物理层 ">
+<meta property="og:url" content="http://yoursite.com/2016/04/27/技术/02|计算机网络原理/01-CS-02-计算机网络-02物理层/index.html">
+<meta property="og:site_name" content="Sin&#39;s Blog">
+<meta property="og:description" content="1通信基础 1.1信道、信号、宽带、码元、波特、速率、信源与信宿等基本概念(1)信道: 向某一个方向传送信息的媒体。(2)数据: 信息的承载实体。(3)信号: 数据的电磁或电气表现。(4)带宽:媒介中信号可使用的最高频率和最低频率之差，或者说是频带的宽度;另一个定义是信 道中数据的传送速率。 (5)码元: 在使用时间域(简称时域)的波形表示数字信号时，代表不同离散数值的基本波形。(6)波特: 单位">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-17T12:05:43.632Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="01 CS  | 02 计算机网络 |  02物理层 ">
+<meta name="twitter:description" content="1通信基础 1.1信道、信号、宽带、码元、波特、速率、信源与信宿等基本概念(1)信道: 向某一个方向传送信息的媒体。(2)数据: 信息的承载实体。(3)信号: 数据的电磁或电气表现。(4)带宽:媒介中信号可使用的最高频率和最低频率之差，或者说是频带的宽度;另一个定义是信 道中数据的传送速率。 (5)码元: 在使用时间域(简称时域)的波形表示数字信号时，代表不同离散数值的基本波形。(6)波特: 单位">
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="01 CS  | 02 计算机网络 |  02物理层 " height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2016-04-27T12:03:25.000Z">2016-04-27</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    19 minutes read (About 2912 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                01 CS  | 02 计算机网络 |  02物理层 
+            
+        </h1>
+        <div class="content">
+            <p>1通信基础</p>
+<h2 id="1-1信道、信号、宽带、码元、波特、速率、信源与信宿等基本概念"><a href="#1-1信道、信号、宽带、码元、波特、速率、信源与信宿等基本概念" class="headerlink" title="1.1信道、信号、宽带、码元、波特、速率、信源与信宿等基本概念"></a>1.1信道、信号、宽带、码元、波特、速率、信源与信宿等基本概念</h2><p><strong>(1)信道:</strong> 向某一个方向传送信息的媒体。<br><strong>(2)数据:</strong> 信息的承载实体。<br><strong>(3)信号:</strong> 数据的电磁或电气表现。<br><strong>(4)带宽</strong>:媒介中信号可使用的最高频率和最低频率之差，或者说是频带的宽度;另一个定义是信 道中数据的传送速率。<br> <strong>(5)码元:</strong> 在使用时间域(简称时域)的波形表示数字信号时，代表不同离散数值的基本波形。<br><strong>(6)波特:</strong> 单位时间内传输的码元数。<br><strong>(7)比特率</strong>:单位时间内传输的比特数。<br><strong>(8)信息传播过程简单地描述为</strong>:信源→信道→信宿。</p>
+<h2 id="1-2奈奎斯特定理与香农定理"><a href="#1-2奈奎斯特定理与香农定理" class="headerlink" title="1.2奈奎斯特定理与香农定理"></a>1.2奈奎斯特定理与香农定理</h2><p>奈奎斯特(Nyquist)无噪声下的码元速率极限值 B 与信道带宽 H 的关系: 最大数据传输率 B=2<em>H (Baud)<br>**奈奎斯特公式—无噪信道传输能力公式:C=2</em>H<em>log2N (bps)<strong><br>式中 H 为信道的带宽，即信道传输上、下限频率的差值，单位为 Hz;<br>N 为一个码元所取的离散值个 数。<br>香农公式—带噪信道容量公式:</strong>C=H</em>log2(1+S/N) (bps)**<br>式中 S 为信号功率，<br>N 为噪声功率，<br>S/N 为信 噪比，<br>通常把信噪比表示成 10lg(S/N)分贝(dB)。</p>
+<h2 id="1-3-编码与调制最基本的二元制调制方法有以下几种"><a href="#1-3-编码与调制最基本的二元制调制方法有以下几种" class="headerlink" title="1.3**编码与调制最基本的二元制调制方法有以下几种:"></a>1.3**编码与调制最基本的二元制调制方法有以下几种:</h2><p>1)调幅(AM):<br>2)调频(FM):<br>3)调相(PM) :</p>
+<p><strong>模拟数据:</strong> 如果数据在某个时间取连续值,则称为模拟数据.例如温度和压力。<br><strong>数字数据</strong>:若数据取离散值，则称数字数据。例如文本信息、整数、二进制数字等。<br> <strong>信号:</strong> 是数据的电磁波或电编码。是数据的具体表示形式。<br> <strong>信道:</strong> 传输信息的必经之路称为“信道”，也称为传送电信号的一条道路。<br>按照信道中 传输的信号分类，可把信道分为 <strong>模拟信道</strong> 和 <strong>数字信道</strong> 。<br><strong>调制</strong> 就是将基带数字信号的频谱变换为适合在模拟信道中传输的频谱。<br>解调正好相反。<br>所以，<strong>调制解调技术</strong> 用于模拟信道传输数字数据通信方式，而模拟信道传输模拟数据不需要调制解调技术。</p>
+<h2 id="1-4电路交换、报文交换与分组交换"><a href="#1-4电路交换、报文交换与分组交换" class="headerlink" title="1.4电路交换、报文交换与分组交换"></a>1.4电路交换、报文交换与分组交换</h2><p> 数据经编码后在通信线路上进行传输，按数据传送技术划分，交换网络又可分为电路交换网、报文交 换网和分组交换网。</p>
+<h3 id="1电路交换"><a href="#1电路交换" class="headerlink" title="1电路交换"></a>1电路交换</h3><p>(1)电路交换的三个过程1 电路建立:数据传输:电路拆除:</p>
+<h3 id="2-报文交换"><a href="#2-报文交换" class="headerlink" title="2 报文交换"></a>2 报文交换</h3><p>  报文交换方式的数据传输单位是报文，报文就是站点一次性要发送的数据块，其长度不限且可变。<br>当一个站要发送报文时，它将一个目的地址附加到报文上，网络节点根据报文上的目的地址信息，把报文发送到下一个节点，一直逐个节点地转送到目的节点。<br>每个节点在收到整个报文并检查无误后，就暂存这个报文，然后利用路由信息找出下一个节点的地址， 再把整个报文传送给下一个节点。因此，端与端之间无需先通过呼叫建立连接。</p>
+<h3 id="3-分组交换"><a href="#3-分组交换" class="headerlink" title="3.分组交换"></a>3.分组交换</h3><p>  分组交换是报文交换的一种改进，它将报文分成若干个分组，每个分组的长度有一个上限，有限长度的分组使得每个节点所需的存储能力降低了，分组可以存储到内存中，提高了交换速度。它适用于交互式通信，如终端与主机通信。</p>
+<h2 id="数据报和虚电路的比较如下"><a href="#数据报和虚电路的比较如下" class="headerlink" title="数据报和虚电路的比较如下:"></a>数据报和虚电路的比较如下:</h2><p>(1). <strong>在传输方式上</strong>，虚电路服务在源、目的主机通信之前，应先建立一条虚电路，然 后才能进行通信，通信结束应将虚电路拆除。而数据报服务，网络层从运输层接收报文， 将其装上报头(源、目的地址等信息)后，作为一个独立的信息单位传送，不需建立和释 放连接，目标结点收到数据后也不需发送确认，因而是一种开销较小的通信方式。但发方 不能确切地知道对方是否准备好接收，是否正在忙碌，因而数据报服务的可靠性不是很高。<br>(2). <strong>关于全网地址</strong>:虚电路服务仅在源主机发出呼叫分组中需要填上源和目的主机的 全网地址，在数据传输阶段，都只需填上虚电路号。而数据报服务，由于每个数据报都单 独传送，因此在每个数据报中都必须具有源和目的主机的全网地址，以便网络结点根据所 带地址向目的主机转发。这对频繁的人—机交互通信每次都附上源、目的主机的全网地址 不仅是个负担，也降低了信道利用率。<br>(3). <strong>关于路由选择</strong>:虚电路服务沿途各结点只在呼叫请求分组在网中传输时，进行路 径选择，以后便不需要了。可是在数据报服务时，每个数据每经过一个网络结点都要进行 一次路由选择。当有一个很长的报文需要传输时，必须先把它分成若干个具有定长的分组， 若采用数据报服务，势必增加网络开销。<br>(4). <strong>关于分组顺序</strong>:对虚电路服务，由于从源主机发出的所有分组都是通过事先建立 好的一条虚电路进行传输，所以能保证分组按发送顺序到达目的主机。但是，当把一份长 报文分成若干个短的数据报时，由于它们被独立传送，可能各自通过不同的路径到达目的 主机，因而数据报服务不能保证这些数据报按序列到达目的主机。<br>(5). <strong>可靠性与适应性</strong>:虚电路服务在通信之前双方已进行过连接，而且每发完一定数 量的分组后，对方也都给予确认，故虚电路服务比数据报服务的可靠性高。但是，当传输 途中的某个结点或链路发生故障时，数据报服务可以绕开这些故障地区，而另选其他路径， 把数据传至目的地，而虚电路服务则必须重新建立虚电路才能进行通信。因此，数据报服 务的适应性比虚电路服务强。<br>(6). <strong>关于平衡网络流量</strong>:数据报在传输过程中，中继结点可为数据报选择一条流量较 小的路由，而避开流量较高的路由，因此数据报服务既平衡网络中的信息流量，又可使数 据报得以更迅速地传输。而在虚电路服务中，一旦虚电路建立后，中继结点是不能根据流 量情况来改变分组的传送路径的。</p>
+<p>综上所述，虚电路服务适用于交互作用，不仅及时、传输较为可靠，而且网络开销小。 数据报服务适用于传输单个分组构成的、不具交互作用的信息以及对传输要求不高的场合。</p>
+<h2 id="虚电路服务和数据报服务的区别"><a href="#虚电路服务和数据报服务的区别" class="headerlink" title="虚电路服务和数据报服务的区别"></a>虚电路服务和数据报服务的区别</h2><p>1 <strong>从占用通信子网资源方面看</strong>:虚电路服务将占用结点交换机的存储空间，而数据 报服务对每个 其完整的目标地址独立选径，如果传送大量短的分组，数据头部分远大于数 据部分，则会浪费带宽。</p>
+<p>2 <strong>从时间开销方面看</strong>:虚电路服务有创建连接的时间开销，对传送小量的短分组， 显得很浪费;而数据报服务决定分组的去向过程很复杂，对每个分组都有分析时间的开销。</p>
+<p>3 <strong>从拥塞避免方面看</strong>:虚电路服务因连接起来的资源可以预留下来，一旦分组到达， 所需的带宽和结点交换机的容量便已具有，因此有一些避免拥塞的优势。而数据报服务则很困难。<br> 4 <strong>从健壮性方面看</strong>:通信线路的故障对虚电路服务是致命的因素，但对数据报服务则容易通过调整路由得到补偿。因此虚电路服务更脆弱。</p>
+<h1 id="2-传输介质"><a href="#2-传输介质" class="headerlink" title="2 传输介质"></a>2 传输介质</h1><h2 id="2-1-双绞线、同轴电缆、光纤与无线传输介质"><a href="#2-1-双绞线、同轴电缆、光纤与无线传输介质" class="headerlink" title="2.1 双绞线、同轴电缆、光纤与无线传输介质"></a>2.1 双绞线、同轴电缆、光纤与无线传输介质</h2><p><strong>并行传输</strong> 有以下特点:<br>(1). 传输速度快，处理简单。<br>(2). 传输成本比较高:每一位的传输都需要一个单独的信道支持，多位同时传输需要 多个独立信道的支持。<br>(3). 不支持长距离传输:信道之间有电容感应，远距离传输时，可靠性较低。</p>
+<p><strong>串行通信</strong> 有以下特点:<br>(1). 串行通信因而比并行通信慢很多，一次一位，传输速率低。<br>(2). 通信成本较低，只需要一个信道。<br>(3). 支持长距离传输，目前计算机网络中所使用的传输方式均为串行传输。 串行通信的频带利用率比并行通信要高。通常在串行通信中，为了进行数据流的匹配， 都要引入缓冲区。</p>
+<h2 id="2-2物理层接口的特性"><a href="#2-2物理层接口的特性" class="headerlink" title="2.2物理层接口的特性"></a>2.2物理层接口的特性</h2><p>物理层的 <strong>主要任务</strong> 描述为确定与传输媒体的接口的一些特性，即:<br>(1)机械特性:<br>(2)电气特性:<br>(3)功能特性:<br>(4)过程特性:</p>
+<h1 id="3-物理层设备"><a href="#3-物理层设备" class="headerlink" title="3 物理层设备"></a>3 物理层设备</h1><p>物理层设备既分不开冲突域，也分不开广播域。数据链路层设备可以分开冲突域，但仍然分不开广播域。</p>
+<p>网络层以上(包括网络层)连接设备可以既可以分开冲突域，也可以分开广播域</p>
+<h2 id="3-1-中继器"><a href="#3-1-中继器" class="headerlink" title="3.1 中继器"></a>3.1 中继器</h2><p>“5-4-3 规则”，是指在 10M 以太网中，网络总长度不得超过 5 个区段，4 台网络延长设备，且 5 个区段中只有 3 个区段可接网络设备。即:一个网段最多只能分 5 个子网段;一个网段最多只能有 4 个中继器;一个网段最多只能有三个子网段含有 PC。</p>
+<h2 id="3-2-集线器"><a href="#3-2-集线器" class="headerlink" title="3.2 集线器"></a>3.2 集线器</h2><p>集线器属于典型的物理层设备，既不能分离冲突域，也不能分离广播域。故而，用集 线器连接的工作站集合属于同一个冲突域，也属于同一个广播域。</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/计算机网络/">计算机网络</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">Like this article? Support the author with</h3>
+        <div class="buttons is-centered">
+            
+                
+<div class="notification is-danger">
+    You forgot to set the <code>qrcode</code> for Alipay. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                
+<div class="notification is-danger">
+    You forgot to set the <code>qrcode</code> for Wechat. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                <!-- Visit https://www.paypal.com/donate/buttons/ to get your donate button -->
+
+<div class="notification is-danger">
+    You forgot to set the <code>business</code> and <code>currency_code</code> for Paypal. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                
+<div class="notification is-danger">
+    You forgot to set the <code>url</code> Patreon. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2016/05/18/技术/03|计算机组成/01-CS-03-计算机组成-01-计算机系统概论/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">01 CS | 03 计算机组成 | 01 计算机系统概论</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2016/04/17/技术/02|计算机网络原理/01-CS-02-计算机网络-01计算机网络体系结构/">
+                <span class="level-item">01 CS  | 02 计算机网络 |  01计算机网络体系结构 </span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    
+                        <img class="image is-128x128 has-mb-6" src="/images/avatar.png" alt="Sin（许思寅）">
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        Sin（许思寅）
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        多元创作者
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>上海</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Posts
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        25
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Categories
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        0
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Tags
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        3
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="http://github.com/" target="_blank">
+                Follow</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="http://github.com/">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="http://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="http://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="http://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Links
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categories
+            </h3>
+            <ul class="menu-list">
+            
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Tag Cloud
+        </h3>
+        <a href="/tags/操作系统/" style="font-size: 20px;">操作系统</a> <a href="/tags/计算机组成/" style="font-size: 20px;">计算机组成</a> <a href="/tags/计算机网络/" style="font-size: 10px;">计算机网络</a>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/03/18/01-CS-06-iOS开发-01-Swift学习手册/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt>
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-17T17:03:35.706Z">2019-03-18</time></div>
+                    <a href="/2019/03/18/01-CS-06-iOS开发-01-Swift学习手册/" class="has-link-black-ter is-size-6"></a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/22/01-CS-03-计算机组成-10-控制单元/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 10 控制单元">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-22T14:53:17.000Z">2016-06-22</time></div>
+                    <a href="/2016/06/22/01-CS-03-计算机组成-10-控制单元/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 10 控制单元</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/22/技术/03|计算机组成/01-CS-03-计算机组成-10-控制单元/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 10 控制单元">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-22T14:53:17.000Z">2016-06-22</time></div>
+                    <a href="/2016/06/22/技术/03|计算机组成/01-CS-03-计算机组成-10-控制单元/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 10 控制单元</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/18/技术/03|计算机组成/01-CS-03-计算机组成-09-控制单元的功能/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 09 控制单元的功能">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-17T16:22:35.000Z">2016-06-18</time></div>
+                    <a href="/2016/06/18/技术/03|计算机组成/01-CS-03-计算机组成-09-控制单元的功能/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 09 控制单元的功能</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/14/技术/03|计算机组成/01-CS-03-计算机组成-08-CPU的结构和功能/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 08 CPU的结构和功能">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-14T03:21:24.000Z">2016-06-14</time></div>
+                    <a href="/2016/06/14/技术/03|计算机组成/01-CS-03-计算机组成-08-CPU的结构和功能/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 08 CPU的结构和功能</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/04/">
+                <span class="level-start">
+                    <span class="level-item">April 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">9</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/操作系统/">
+                        <span class="tag">操作系统</span>
+                        <span class="tag is-grey">11</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/计算机组成/">
+                        <span class="tag">计算机组成</span>
+                        <span class="tag is-grey">11</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/计算机网络/">
+                        <span class="tag">计算机网络</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/03/18/01-CS-06-iOS开发-01-Swift学习手册/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt>
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-17T17:03:35.706Z">2019-03-18</time></div>
+                    <a href="/2019/03/18/01-CS-06-iOS开发-01-Swift学习手册/" class="has-link-black-ter is-size-6"></a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/22/01-CS-03-计算机组成-10-控制单元/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 10 控制单元">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-22T14:53:17.000Z">2016-06-22</time></div>
+                    <a href="/2016/06/22/01-CS-03-计算机组成-10-控制单元/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 10 控制单元</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/22/技术/03|计算机组成/01-CS-03-计算机组成-10-控制单元/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 10 控制单元">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-22T14:53:17.000Z">2016-06-22</time></div>
+                    <a href="/2016/06/22/技术/03|计算机组成/01-CS-03-计算机组成-10-控制单元/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 10 控制单元</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/18/技术/03|计算机组成/01-CS-03-计算机组成-09-控制单元的功能/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 09 控制单元的功能">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-17T16:22:35.000Z">2016-06-18</time></div>
+                    <a href="/2016/06/18/技术/03|计算机组成/01-CS-03-计算机组成-09-控制单元的功能/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 09 控制单元的功能</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/14/技术/03|计算机组成/01-CS-03-计算机组成-08-CPU的结构和功能/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 08 CPU的结构和功能">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-14T03:21:24.000Z">2016-06-14</time></div>
+                    <a href="/2016/06/14/技术/03|计算机组成/01-CS-03-计算机组成-08-CPU的结构和功能/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 08 CPU的结构和功能</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/04/">
+                <span class="level-start">
+                    <span class="level-item">April 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">9</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/操作系统/">
+                        <span class="tag">操作系统</span>
+                        <span class="tag is-grey">11</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/计算机组成/">
+                        <span class="tag">计算机组成</span>
+                        <span class="tag is-grey">11</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/计算机网络/">
+                        <span class="tag">计算机网络</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="01 CS  | 02 计算机网络 |  02物理层 " height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 Sin 许思寅&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-Hans");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

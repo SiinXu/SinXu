@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>01 CS | 01 操作系统 |  02 进程管理  | 01 进程与线程 - Sin&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+    <meta name="description" content="1.1 进程的概念进程是一个活动的实体，除了指令代码，进程通常还包括进程堆段、栈段(包含临时 数据，如方法参数、返回地址和局部变量)和数据段(包含常量或全局变量等)。 进程是程序在数据集合上运行的过程，它是系统进行资源分配和调度的一个独立单位。 定义：进程是并发程序的动态运行，是多道程序系统中程序的动态运行过程。 特征**动态性:** 动态性是进程最基本的特征。           即进程由创建而">
+<meta name="keywords" content="操作系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="01 CS | 01 操作系统 |  02 进程管理  | 01 进程与线程">
+<meta property="og:url" content="http://yoursite.com/2016/03/09/技术/01|操作系统/01-技术-01-操作系统-02-进程管理-01-进程与线程/index.html">
+<meta property="og:site_name" content="Sin&#39;s Blog">
+<meta property="og:description" content="1.1 进程的概念进程是一个活动的实体，除了指令代码，进程通常还包括进程堆段、栈段(包含临时 数据，如方法参数、返回地址和局部变量)和数据段(包含常量或全局变量等)。 进程是程序在数据集合上运行的过程，它是系统进行资源分配和调度的一个独立单位。 定义：进程是并发程序的动态运行，是多道程序系统中程序的动态运行过程。 特征**动态性:** 动态性是进程最基本的特征。           即进程由创建而">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/_posts/技术/操作系统/操作系统图片资源/01-技术-01-操作系统-02-进程管理-01-进程与线程-01.jpg">
+<meta property="og:updated_time" content="2019-03-16T19:24:05.985Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="01 CS | 01 操作系统 |  02 进程管理  | 01 进程与线程">
+<meta name="twitter:description" content="1.1 进程的概念进程是一个活动的实体，除了指令代码，进程通常还包括进程堆段、栈段(包含临时 数据，如方法参数、返回地址和局部变量)和数据段(包含常量或全局变量等)。 进程是程序在数据集合上运行的过程，它是系统进行资源分配和调度的一个独立单位。 定义：进程是并发程序的动态运行，是多道程序系统中程序的动态运行过程。 特征**动态性:** 动态性是进程最基本的特征。           即进程由创建而">
+<meta name="twitter:image" content="http://yoursite.com/_posts/技术/操作系统/操作系统图片资源/01-技术-01-操作系统-02-进程管理-01-进程与线程-01.jpg">
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="01 CS | 01 操作系统 |  02 进程管理  | 01 进程与线程" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2016-03-09T13:33:42.000Z">2016-03-09</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    10 minutes read (About 1514 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                01 CS | 01 操作系统 |  02 进程管理  | 01 进程与线程
+            
+        </h1>
+        <div class="content">
+            <h2 id="1-1-进程的概念"><a href="#1-1-进程的概念" class="headerlink" title="1.1 进程的概念"></a>1.1 进程的概念</h2><pre><code>进程是一个活动的实体，除了指令代码，进程通常还包括进程堆段、栈段(包含临时 数据，如方法参数、返回地址和局部变量)和数据段(包含常量或全局变量等)。
+进程是程序在数据集合上运行的过程，它是系统进行资源分配和调度的一个独立单位。
+</code></pre><p><strong>定义：进程是并发程序的动态运行，是多道程序系统中程序的动态运行过程。</strong></p>
+<h4 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h4><pre><code>**动态性:** 动态性是进程最基本的特征。
+          即进程由创建而产生，由调度而运行，因得不 资源而暂停运行，以及由撤销而消亡。
+**独立性：** 进程是自我封闭的，有共享代码段的进程互相之间也是独立的。
+**异步性:** 进程按各自独立的、不可预知的速度向前推进，导致程序具有不可再现性。
+          因此，在操作系统中，必须采取某种措施来保证各程序之间能协调运行。
+**结构性:** 由程序代码(段)、数据(段)和进程控制块组成。
+</code></pre><h2 id="1-2-进程的状态与转换"><a href="#1-2-进程的状态与转换" class="headerlink" title="1.2 进程的状态与转换"></a>1.2 进程的状态与转换</h2><h3 id="1-进程的基本状态包括有以下几种-三状态模型"><a href="#1-进程的基本状态包括有以下几种-三状态模型" class="headerlink" title="1.进程的基本状态包括有以下几种(三状态模型):"></a>1.进程的基本状态包括有以下几种(三状态模型):</h3><p><strong>运行状态(Running):</strong> 进程占用处理机正在运行其程序。单处理机系统中只能有一个 进程处于运行状态，多处理机系统中可能有多个进程处于运行状态。<br><strong>阻塞状态(Blocked):</strong> 也叫等待或睡眠状态，是进程由于等待某种事件的发生而处于 暂停运行的状态。如进程因等待输入/输出的完成、等待数据到达、等待缓冲空间等。</p>
+<p><strong>就绪状态(Ready):</strong> 进程已分配到除处理机以外的所有必要资源，具备了运行的条件， 可能会有多个进程处于就绪状态，排成就绪队列。图 1 说明了三状态进程模型及其转换。<br><br><img src="/_posts/技术/操作系统/操作系统图片资源/01-技术-01-操作系统-02-进程管理-01-进程与线程-01.jpg" alt></p>
+<p>图 1 三状态进程模型</p>
+<h3 id="2-进程状态的转换"><a href="#2-进程状态的转换" class="headerlink" title="2.进程状态的转换"></a>2.进程状态的转换</h3><p><strong>(1)就绪状态到运行状态:</strong> 调度程序为就绪状态的进程分配处理机后，进入运行状态。<br> <strong>(2)运行状态到阻塞状态:</strong> 正在运行的进程因需要等待某事件而无法运行，让出处理机。<br> <strong>(3)阻塞状态到就绪状态:</strong> 进程所等待的事件发生了，进程就从阻塞状态进入就绪状态。<br><strong>(4)运行状态到就绪状态:</strong> 正在运行的进程因时间片用完而被暂停运行;或者在可抢先 式调度方式中，一个优先级高的进程到来后，正在运行的优先级低的进程被强制撤下处理 机，转换为就绪状态。</p>
+<h2 id="1-3-进程控制"><a href="#1-3-进程控制" class="headerlink" title="1.3 进程控制"></a>1.3 进程控制</h2><p>进程原语 所谓原语即原子操作，要么全做，要么不做，一般是通过屏蔽中断来完成的。<br>(1)进程创建。<br>(2)进程撤销。<br>(3)进程阻塞。<br>(4)进程唤醒。<br>(5)进程挂起。<br>(6)进程激活。</p>
+<h2 id="1-4-进程组织"><a href="#1-4-进程组织" class="headerlink" title="1.4 进程组织"></a>1.4 进程组织</h2><h3 id="进程实体程序-描述进程所要完成的功能，特指二进制的指令代码。"><a href="#进程实体程序-描述进程所要完成的功能，特指二进制的指令代码。" class="headerlink" title="进程实体程序:描述进程所要完成的功能，特指二进制的指令代码。"></a>进程实体程序:描述进程所要完成的功能，特指二进制的指令代码。</h3><h3 id="数据集合-程序运行所需要的数据结构。包括常数，变量，堆，数据栈等。"><a href="#数据集合-程序运行所需要的数据结构。包括常数，变量，堆，数据栈等。" class="headerlink" title="数据集合:程序运行所需要的数据结构。包括常数，变量，堆，数据栈等。"></a>数据集合:程序运行所需要的数据结构。包括常数，变量，堆，数据栈等。</h3><h3 id="进程控制块-进程控制块包含了进程的描述信息、控制信息和资源信息。"><a href="#进程控制块-进程控制块包含了进程的描述信息、控制信息和资源信息。" class="headerlink" title="进程控制块:进程控制块包含了进程的描述信息、控制信息和资源信息。"></a>进程控制块:进程控制块包含了进程的描述信息、控制信息和资源信息。</h3><h3 id="进程控制块-PCB"><a href="#进程控制块-PCB" class="headerlink" title="进程控制块(PCB)"></a>进程控制块(PCB)</h3><p>PCB 是保存进程状态和进程控制的标识，也是进程存在的唯一标识(也称进程表 PT)。<br><strong>创建进程则产生 PCB，撤销进程则系统就要回收 PCB。</strong></p>
+<h2 id="1-5-进程通信"><a href="#1-5-进程通信" class="headerlink" title="1.5 进程通信"></a>1.5 进程通信</h2><p>进程间的信息交换工作称为进程间的通信。<br>P、V 操作称为低级通信。<br>高级通信是指进 程之间以较高的效率传送大量数据的通信方式。<br>高级通信方式可分为三大类:<strong>共享内存、 消息传递以及管道机制。</strong></p>
+<h2 id="1-6-线程概念与多线程模型"><a href="#1-6-线程概念与多线程模型" class="headerlink" title="1.6 线程概念与多线程模型"></a>1.6 线程概念与多线程模型</h2><h3 id="1-线程的发明"><a href="#1-线程的发明" class="headerlink" title="1.线程的发明"></a>1.线程的发明</h3><p>线程是进程中的一个实体，它是操作系统进行独立调度和分派的基本单位，但不是资 源分配的基本单位。<br>线程自己不拥有系统资源，只拥有在运行中必不可少的资源，它同样 有就绪、阻塞和运行三种基本状态。<br>并且它与同属一个进程的其他线程共享本进程所拥有 的全部资源(内存、文件以及设备)。</p>
+<h3 id="2-线程实现方式"><a href="#2-线程实现方式" class="headerlink" title="2.线程实现方式"></a>2.线程实现方式</h3><p><strong>内核线程:</strong> 由操作系统根据内部需求进行创建和撤销，内核线程依赖于操作系统内核 的运行，因此操作系统知道内核线程的存在。也可以被用户所调用。<br><strong>用户线程:</strong> 与操作系统内核无关，用户程序利用操作系统提供的线程库来编写形成。<br>它的创建、同步、调度和管理等诸多工作均由用户来实现。调度由用户编写的应用程序内部进行。<br>但是由于操作系统不知道用户线程的存在，所以用户线程一旦因各种原因而阻塞，则其所在的整个进程也会阻塞。<br>操作系统仅把处理机时间配额分配给进程，所以用户多线程时每个线程共享一个进程的时间配额，运行会变慢。</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/操作系统/">操作系统</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">Like this article? Support the author with</h3>
+        <div class="buttons is-centered">
+            
+                
+<div class="notification is-danger">
+    You forgot to set the <code>qrcode</code> for Alipay. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                
+<div class="notification is-danger">
+    You forgot to set the <code>qrcode</code> for Wechat. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                <!-- Visit https://www.paypal.com/donate/buttons/ to get your donate button -->
+
+<div class="notification is-danger">
+    You forgot to set the <code>business</code> and <code>currency_code</code> for Paypal. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+                
+<div class="notification is-danger">
+    You forgot to set the <code>url</code> Patreon. Please set it in <code>_config.yml</code>.
+</div>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2016/03/11/技术/01|操作系统/01-技术-01-操作系统-02-进程管理-02-处理机调度/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">01 CS | 01 操作系统 |  02 进程管理  | 02 处理机调度</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2016/03/04/技术/01|操作系统/01技术-01操作系统-01操作系统引论/">
+                <span class="level-item">01 CS | 01 操作系统 | 01 操作系统引论</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    
+                        <img class="image is-128x128 has-mb-6" src="/images/avatar.png" alt="Sin（许思寅）">
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        Sin（许思寅）
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        多元创作者
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>上海</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Posts
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        25
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Categories
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        0
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Tags
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        3
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="http://github.com/" target="_blank">
+                Follow</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="http://github.com/">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="http://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Twitter" href="http://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Dribbble" href="http://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Links
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categories
+            </h3>
+            <ul class="menu-list">
+            
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Tag Cloud
+        </h3>
+        <a href="/tags/操作系统/" style="font-size: 20px;">操作系统</a> <a href="/tags/计算机组成/" style="font-size: 20px;">计算机组成</a> <a href="/tags/计算机网络/" style="font-size: 10px;">计算机网络</a>
+    </div>
+</div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/03/18/01-CS-06-iOS开发-01-Swift学习手册/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt>
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-17T17:03:35.706Z">2019-03-18</time></div>
+                    <a href="/2019/03/18/01-CS-06-iOS开发-01-Swift学习手册/" class="has-link-black-ter is-size-6"></a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/22/01-CS-03-计算机组成-10-控制单元/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 10 控制单元">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-22T14:53:17.000Z">2016-06-22</time></div>
+                    <a href="/2016/06/22/01-CS-03-计算机组成-10-控制单元/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 10 控制单元</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/22/技术/03|计算机组成/01-CS-03-计算机组成-10-控制单元/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 10 控制单元">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-22T14:53:17.000Z">2016-06-22</time></div>
+                    <a href="/2016/06/22/技术/03|计算机组成/01-CS-03-计算机组成-10-控制单元/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 10 控制单元</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/18/技术/03|计算机组成/01-CS-03-计算机组成-09-控制单元的功能/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 09 控制单元的功能">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-17T16:22:35.000Z">2016-06-18</time></div>
+                    <a href="/2016/06/18/技术/03|计算机组成/01-CS-03-计算机组成-09-控制单元的功能/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 09 控制单元的功能</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/14/技术/03|计算机组成/01-CS-03-计算机组成-08-CPU的结构和功能/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 08 CPU的结构和功能">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-14T03:21:24.000Z">2016-06-14</time></div>
+                    <a href="/2016/06/14/技术/03|计算机组成/01-CS-03-计算机组成-08-CPU的结构和功能/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 08 CPU的结构和功能</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/04/">
+                <span class="level-start">
+                    <span class="level-item">April 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">9</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/操作系统/">
+                        <span class="tag">操作系统</span>
+                        <span class="tag is-grey">11</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/计算机组成/">
+                        <span class="tag">计算机组成</span>
+                        <span class="tag is-grey">11</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/计算机网络/">
+                        <span class="tag">计算机网络</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/03/18/01-CS-06-iOS开发-01-Swift学习手册/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt>
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-03-17T17:03:35.706Z">2019-03-18</time></div>
+                    <a href="/2019/03/18/01-CS-06-iOS开发-01-Swift学习手册/" class="has-link-black-ter is-size-6"></a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/22/01-CS-03-计算机组成-10-控制单元/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 10 控制单元">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-22T14:53:17.000Z">2016-06-22</time></div>
+                    <a href="/2016/06/22/01-CS-03-计算机组成-10-控制单元/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 10 控制单元</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/22/技术/03|计算机组成/01-CS-03-计算机组成-10-控制单元/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 10 控制单元">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-22T14:53:17.000Z">2016-06-22</time></div>
+                    <a href="/2016/06/22/技术/03|计算机组成/01-CS-03-计算机组成-10-控制单元/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 10 控制单元</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/18/技术/03|计算机组成/01-CS-03-计算机组成-09-控制单元的功能/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 09 控制单元的功能">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-17T16:22:35.000Z">2016-06-18</time></div>
+                    <a href="/2016/06/18/技术/03|计算机组成/01-CS-03-计算机组成-09-控制单元的功能/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 09 控制单元的功能</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2016/06/14/技术/03|计算机组成/01-CS-03-计算机组成-08-CPU的结构和功能/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="01 CS | 03 计算机组成 | 08 CPU的结构和功能">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2016-06-14T03:21:24.000Z">2016-06-14</time></div>
+                    <a href="/2016/06/14/技术/03|计算机组成/01-CS-03-计算机组成-08-CPU的结构和功能/" class="has-link-black-ter is-size-6">01 CS | 03 计算机组成 | 08 CPU的结构和功能</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/04/">
+                <span class="level-start">
+                    <span class="level-item">April 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2016/03/">
+                <span class="level-start">
+                    <span class="level-item">March 2016</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">9</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Tags
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/操作系统/">
+                        <span class="tag">操作系统</span>
+                        <span class="tag is-grey">11</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/计算机组成/">
+                        <span class="tag">计算机组成</span>
+                        <span class="tag is-grey">11</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/计算机网络/">
+                        <span class="tag">计算机网络</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="01 CS | 01 操作系统 |  02 进程管理  | 01 进程与线程" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 Sin 许思寅&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-Hans");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>
